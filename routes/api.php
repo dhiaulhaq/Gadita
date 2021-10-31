@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductApiController;
 use App\Http\Controllers\SupplierApiController;
 use App\Http\Controllers\LendingApiController;
 use App\Http\Controllers\MaintenanceApiController;
+use App\Http\Controllers\CategoryApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,10 @@ Route::get('/maintenance/{id}', [MaintenanceApiController::class, 'show']);
 Route::post('/maintenance', [MaintenanceApiController::class, 'store']);
 Route::put('/maintenance/{id}', [MaintenanceApiController::class, 'update']);
 Route::delete('/maintenance/{id}', [MaintenanceApiController::class, 'destroy']);
+
+//Category Api
+Route::get('/category', [CategoryApiController::class, 'index']);
+Route::get('/category/{id}', [CategoryApiController::class, 'show']);
+Route::post('/category', [CategoryApiController::class, 'store']);
+Route::put('/category/{id}', [CategoryApiController::class, 'update']);
+Route::delete('/category/{id}', [CategoryApiController::class, 'destroy']);
