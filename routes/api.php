@@ -7,6 +7,8 @@ use App\Http\Controllers\SupplierApiController;
 use App\Http\Controllers\LendingApiController;
 use App\Http\Controllers\MaintenanceApiController;
 use App\Http\Controllers\CategoryApiController;
+use App\Http\Controllers\StockOpnameApiController;
+use App\Models\StockOpname;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,7 @@ Route::get('/products/{id}', [ProductApiController::class, 'show']);
 Route::post('/products', [ProductApiController::class, 'store']);
 Route::put('/products/{id}', [ProductApiController::class, 'update']);
 Route::delete('/products/{id}', [ProductApiController::class, 'destroy']);
+Route::get('/products-lending/{id}', [ProductApiController::class, 'lending']);
 
 //Supplier Api
 Route::get('/supplier', [SupplierApiController::class, 'index']);
@@ -43,7 +46,7 @@ Route::delete('/supplier/{id}', [SupplierApiController::class, 'destroy']);
 //Lending Api
 Route::get('/lending', [LendingApiController::class, 'index']);
 Route::get('/lending/{id}', [LendingApiController::class, 'show']);
-Route::post('/lending', [LendingApiController::class, 'store']);
+Route::post('/lending/{id}', [LendingApiController::class, 'store']);
 Route::put('/lending/{id}', [LendingApiController::class, 'update']);
 Route::delete('/lending/{id}', [LendingApiController::class, 'destroy']);
 
@@ -60,3 +63,11 @@ Route::get('/category/{id}', [CategoryApiController::class, 'show']);
 Route::post('/category', [CategoryApiController::class, 'store']);
 Route::put('/category/{id}', [CategoryApiController::class, 'update']);
 Route::delete('/category/{id}', [CategoryApiController::class, 'destroy']);
+
+//Stock Opname Api
+Route::get('/stock_opname', [StockOpnameApiController::class, 'indexYear']);
+Route::post('/stock_opname', [StockOpnameApiController::class, 'storeYear']);
+Route::get('/stock_opname/{id}', [StockOpnameApiController::class, 'showYear']);
+Route::get('/stock_opname/month', [StockOpnameApiController::class, 'month']);
+// Route::get('/stock_opname', [StockOpnameApiController::class, 'index']);
+Route::post('/stock_opname/scan', [StockOpnameApiController::class, 'store']);
