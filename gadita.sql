@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Okt 2021 pada 23.44
--- Versi server: 10.4.14-MariaDB
--- Versi PHP: 7.4.20
+-- Generation Time: Dec 14, 2021 at 04:28 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -36,17 +36,17 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `code`, `created_at`, `updated_at`) VALUES
-(1, 'Kursi', 'KS', NULL, '2021-10-22 23:43:17'),
-(2, 'Meja', 'M', '2021-10-22 22:02:58', '2021-10-22 23:54:11');
+(1, 'Ruang Meeting', 'RM', '2021-12-08 01:44:43', '2021-12-08 01:44:43'),
+(2, 'Kelas', 'KLS', '2021-12-08 02:35:42', '2021-12-08 02:35:42');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -61,34 +61,39 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `lendings`
+-- Table structure for table `lendings`
 --
 
 CREATE TABLE `lendings` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `asset` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `borrower` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `asset_id` bigint(20) UNSIGNED NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` date NOT NULL,
-  `time_start` time NOT NULL,
-  `time_end` time NOT NULL,
+  `time_start` datetime NOT NULL,
+  `time_end` datetime NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `product_code` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `lendings`
+-- Dumping data for table `lendings`
 --
 
-INSERT INTO `lendings` (`id`, `name`, `asset`, `description`, `date`, `time_start`, `time_end`, `phone`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Aldi', 'Kaos', 'Evenet', '2021-07-02', '09:51:17', '14:51:17', '08123009876', 'On Progress', '2021-07-01 23:51:17', '2021-07-01 23:51:17');
+INSERT INTO `lendings` (`id`, `borrower`, `asset_id`, `description`, `time_start`, `time_end`, `phone`, `status`, `created_at`, `updated_at`, `product_code`, `image`) VALUES
+(1, 'Naufal', 1, 'Keperluan seminar', '2021-12-10 07:00:00', '2021-12-10 19:00:00', '081311008828', 'Selesai', '2021-12-09 12:16:34', '2021-12-09 05:38:37', 'RM-1638953151', 'https://id-test-11.slatic.net/shop/c9b11bfffa4c0d72eaf00ea2bfb0756a.jpeg_2200x2200q80.jpg_.webp'),
+(2, 'Naufal', 2, 'Keperluan seminar', '2021-12-09 09:00:00', '2021-12-09 17:00:00', '081311008828', 'Selesai', '2021-12-09 05:31:47', '2021-12-09 06:37:57', 'KLS-1638956223', 'https://cf.shopee.co.id/file/f0e6bd52dbe9e9edc17fc7e02ea978f9'),
+(4, 'Naufalsaaa', 2, 'Keperluan seminar', '2021-12-09 09:00:00', '2021-12-09 17:00:00', '081311008828', 'Dipinjam', '2021-12-09 05:35:28', '2021-12-09 05:35:28', 'KLS-1638956223', 'https://cf.shopee.co.id/file/f0e6bd52dbe9e9edc17fc7e02ea978f9'),
+(6, 'Alwan', 1, 'Iseng', '2021-12-10 07:00:00', '2021-12-10 18:00:00', '081311008828', 'Selesai', '2021-12-09 06:11:59', '2021-12-09 07:35:47', 'RM-1638953151', 'https://id-test-11.slatic.net/shop/c9b11bfffa4c0d72eaf00ea2bfb0756a.jpeg_2200x2200q80.jpg_.webp'),
+(7, 'Mahmud', 1, 'Sedekah', '2021-12-10 07:00:00', '2021-12-10 19:00:00', '081311008828', 'Dipinjam', '2021-12-09 07:44:00', '2021-12-09 07:44:00', 'RM-1638953151', 'https://id-test-11.slatic.net/shop/c9b11bfffa4c0d72eaf00ea2bfb0756a.jpeg_2200x2200q80.jpg_.webp');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `maintenances`
+-- Table structure for table `maintenances`
 --
 
 CREATE TABLE `maintenances` (
@@ -103,17 +108,10 @@ CREATE TABLE `maintenances` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `maintenances`
---
-
-INSERT INTO `maintenances` (`id`, `name`, `description`, `location`, `address`, `date`, `phone`, `created_at`, `updated_at`) VALUES
-(1, 'Proyektor 1', 'Rusak', 'Service Anugerah', 'Jl. Menanggung', '2021-07-02', '0813209876', '2021-07-01 23:52:31', '2021-07-01 19:29:10');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -123,30 +121,32 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2021_06_21_222359_create_products_table', 1),
-(5, '2021_07_01_221753_create_supplier_table', 2),
 (6, '2021_07_01_231731_create_lendings_table', 3),
 (7, '2021_07_01_233744_create_lendings_table', 4),
-(8, '2021_07_01_234031_create_maintenances_table', 5),
-(9, '2021_07_01_234906_create_lendings_table', 6),
-(15, '2014_10_12_000000_create_users_table', 7),
-(16, '2016_06_01_000001_create_oauth_auth_codes_table', 8),
-(17, '2016_06_01_000002_create_oauth_access_tokens_table', 8),
-(18, '2016_06_01_000003_create_oauth_refresh_tokens_table', 8),
-(19, '2016_06_01_000004_create_oauth_clients_table', 8),
-(20, '2016_06_01_000005_create_oauth_personal_access_clients_table', 8),
-(21, '2021_10_23_044827_create_categories_table', 9);
+(22, '2014_10_12_000000_create_users_table', 5),
+(23, '2014_10_12_100000_create_password_resets_table', 5),
+(24, '2016_06_01_000001_create_oauth_auth_codes_table', 5),
+(25, '2016_06_01_000002_create_oauth_access_tokens_table', 5),
+(26, '2016_06_01_000003_create_oauth_refresh_tokens_table', 5),
+(27, '2016_06_01_000004_create_oauth_clients_table', 5),
+(28, '2016_06_01_000005_create_oauth_personal_access_clients_table', 5),
+(29, '2019_08_19_000000_create_failed_jobs_table', 5),
+(30, '2021_06_21_222359_create_products_table', 5),
+(31, '2021_07_01_221753_create_supplier_table', 5),
+(32, '2021_07_01_234031_create_maintenances_table', 5),
+(33, '2021_07_01_234906_create_lendings_table', 5),
+(34, '2021_10_23_044827_create_categories_table', 5),
+(36, '2021_12_10_115640_create_stock_opnames_table', 6),
+(37, '2021_12_14_074202_create_periods_table', 7);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `oauth_access_tokens`
+-- Table structure for table `oauth_access_tokens`
 --
 
 CREATE TABLE `oauth_access_tokens` (
@@ -161,30 +161,10 @@ CREATE TABLE `oauth_access_tokens` (
   `expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `oauth_access_tokens`
---
-
-INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
-('2eff8f8c2780fa9a9b46fc78cce7bf4c096af1b6b021fdb33239817f6a38dbaf624078855eb0da3b', 3, 3, 'appToken', '[]', 1, '2021-09-30 16:47:40', '2021-09-30 16:47:40', '2022-09-30 23:47:40'),
-('514dc6902a6a959c383c40ca93e6f72765d40e8808cbf0da946a8e2c33a41307eca64ee4a411a644', 1, 3, 'appToken', '[]', 1, '2021-10-14 15:43:14', '2021-10-14 15:43:14', '2022-10-14 22:43:14'),
-('54bc6e65daacdc03da58fe2a335870bc4674096e8e28c1007941961023e27e2fd921c9ac8239b96c', 4, 3, 'appToken', '[]', 0, '2021-09-30 16:33:31', '2021-09-30 16:33:31', '2022-09-30 23:33:31'),
-('7b4f1862160cef53b38a39b52d501531e06b9679bd915de1c670aa8206aa63563525b95ada448206', 1, 3, 'appToken', '[]', 1, '2021-09-30 16:11:42', '2021-09-30 16:11:42', '2022-09-30 23:11:42'),
-('8efb54c01e5a3e104df899148407e6821e32d1ddd532052a10475f34fb402a0675b38017d0349e6f', 3, 3, 'appToken', '[]', 0, '2021-09-30 17:40:27', '2021-09-30 17:40:27', '2022-10-01 00:40:27'),
-('962dc2ae7d90b20741bccc2eae6504810a8017ef41df992075248acb655759f9823bf89c423ab6ff', 3, 3, 'appToken', '[]', 1, '2021-09-30 16:43:53', '2021-09-30 16:43:53', '2022-09-30 23:43:53'),
-('97e387fe062f709bf01c0e759a526da4d3c79ae1e9dc5e0d663414a33c81dae49b44f4d10cdb06b7', 3, 3, 'appToken', '[]', 1, '2021-09-30 16:27:50', '2021-09-30 16:27:50', '2022-09-30 23:27:50'),
-('9a8fbae78650b6f2ebcb5c312556e1478a44f36c883e623937f8cb805d52497c5f2c2d97e42ef19a', 2, 3, 'appToken', '[]', 0, '2021-09-30 16:17:18', '2021-09-30 16:17:18', '2022-09-30 23:17:18'),
-('a885fa759985b260b39a4572c0a18adc6106f37de9c70539b400091adb1fecc25bd835d04349e169', 1, 3, 'appToken', '[]', 0, '2021-09-30 08:57:24', '2021-09-30 08:57:24', '2022-09-30 15:57:24'),
-('abe5d2ed49a678b50b30a0bba4446d8f12765d08ff8394c7fd2b2cdd44bce059c756fb0739c011c3', 3, 3, 'appToken', '[]', 0, '2021-10-14 15:44:53', '2021-10-14 15:44:53', '2022-10-14 22:44:53'),
-('e0738d012af067930a4afd47993fd18af45fad4bee82fd063b7c935f14d0947ee28cf29aa88dd954', 1, 3, 'appToken', '[]', 1, '2021-09-30 08:58:09', '2021-09-30 08:58:09', '2022-09-30 15:58:09'),
-('e7e67d9911499db6a48836aebc4408a28fbd4a98d777e4c99d0086853cd0279880d23a3d8c6e8934', 3, 3, 'appToken', '[]', 1, '2021-09-30 16:17:44', '2021-09-30 16:17:44', '2022-09-30 23:17:44'),
-('ed3eee66bc18a0520d42dbe180c3dd3f237c6af8c2e671bb1dd0d1add13751297410bbe99d00d9b3', 5, 3, 'appToken', '[]', 1, '2021-09-30 16:40:25', '2021-09-30 16:40:25', '2022-09-30 23:40:25'),
-('fb1196c908c248369fbd79a226451d92d10a8550f18d30879417fcd2023601ade4247d63e019b84a', 6, 3, 'appToken', '[]', 1, '2021-09-30 17:39:35', '2021-09-30 17:39:35', '2022-10-01 00:39:35');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `oauth_auth_codes`
+-- Table structure for table `oauth_auth_codes`
 --
 
 CREATE TABLE `oauth_auth_codes` (
@@ -199,7 +179,7 @@ CREATE TABLE `oauth_auth_codes` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `oauth_clients`
+-- Table structure for table `oauth_clients`
 --
 
 CREATE TABLE `oauth_clients` (
@@ -216,20 +196,10 @@ CREATE TABLE `oauth_clients` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `oauth_clients`
---
-
-INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Laravel Personal Access Client', 'RlwahMDV5NXdKpE1CalvbqxcfdqTE2Sv4g7KftcI', NULL, 'http://localhost', 1, 0, 0, '2021-09-30 05:14:22', '2021-09-30 05:14:22'),
-(2, NULL, 'Laravel Password Grant Client', 'KiMDcuEh3ueoL5CaZaYfj4ZHADh6TOCYsF1AulHJ', 'users', 'http://localhost', 0, 1, 0, '2021-09-30 05:14:22', '2021-09-30 05:14:22'),
-(3, NULL, 'Laravel Personal Access Client', 'cDLy9UiiOrb2xrcvok0aAmKVZyviYxQ2hlxt11pk', NULL, 'http://localhost', 1, 0, 0, '2021-09-30 05:14:38', '2021-09-30 05:14:38'),
-(4, NULL, 'Laravel Password Grant Client', 'ZVmRuUgovls5npcIH9XJ03KaR2dPiwkoLOWWUjE5', 'users', 'http://localhost', 0, 1, 0, '2021-09-30 05:14:38', '2021-09-30 05:14:38');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `oauth_personal_access_clients`
+-- Table structure for table `oauth_personal_access_clients`
 --
 
 CREATE TABLE `oauth_personal_access_clients` (
@@ -239,18 +209,10 @@ CREATE TABLE `oauth_personal_access_clients` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `oauth_personal_access_clients`
---
-
-INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2021-09-30 05:14:22', '2021-09-30 05:14:22'),
-(2, 3, '2021-09-30 05:14:38', '2021-09-30 05:14:38');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `oauth_refresh_tokens`
+-- Table structure for table `oauth_refresh_tokens`
 --
 
 CREATE TABLE `oauth_refresh_tokens` (
@@ -263,7 +225,7 @@ CREATE TABLE `oauth_refresh_tokens` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -275,32 +237,103 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `products`
+-- Table structure for table `periods`
 --
 
-CREATE TABLE `products` (
+CREATE TABLE `periods` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `price` decimal(8,2) NOT NULL,
-  `image_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `year` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `products`
+-- Dumping data for table `periods`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `price`, `image_url`, `created_at`, `updated_at`) VALUES
-(2, 'Kaos Oblong', 'Kualitas Import Tinggi', '150000.00', 'https://cf.shopee.co.id/file/f0e6bd52dbe9e9edc17fc7e02ea978f9', NULL, '2021-06-30 02:17:43'),
-(3, 'Tas Laptop', 'Ukuran Besar', '250000.00', 'https://tokokomputer007.com/wp-content/uploads/2017/12/tas-laptop-1.jpg', NULL, '2021-06-30 11:21:21'),
-(4, 'Gelas', 'Dari beling', '25000.00', 'https://id-test-11.slatic.net/shop/c9b11bfffa4c0d72eaf00ea2bfb0756a.jpeg_2200x2200q80.jpg_.webp', '2021-06-21 20:44:05', '2021-10-22 22:05:43');
+INSERT INTO `periods` (`id`, `year`, `created_at`, `updated_at`) VALUES
+(1, 2021, '2021-12-14 00:55:12', '2021-12-14 00:55:12'),
+(2, 2022, '2021-12-14 00:55:38', '2021-12-14 00:55:38');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `suppliers`
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `product_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qty_master` int(20) NOT NULL,
+  `image_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `qty_lending` int(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `category_id`, `product_code`, `description`, `qty_master`, `image_url`, `created_at`, `updated_at`, `qty_lending`) VALUES
+(1, 'Gelas', 1, 'RM-1638953151', 'Dari Beling', 100, 'https://id-test-11.slatic.net/shop/c9b11bfffa4c0d72eaf00ea2bfb0756a.jpeg_2200x2200q80.jpg_.webp', '2021-12-08 01:45:51', '2021-12-08 01:45:51', 33),
+(2, 'Kaos Oblong', 2, 'KLS-1638956223', 'Dari sutera', 50, 'https://cf.shopee.co.id/file/f0e6bd52dbe9e9edc17fc7e02ea978f9', '2021-12-08 02:37:03', '2021-12-08 02:37:03', 17);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock_opnames`
+--
+
+CREATE TABLE `stock_opnames` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_asset` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_year` bigint(20) UNSIGNED DEFAULT NULL,
+  `asset_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `asset_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qty_asset_master` int(11) NOT NULL,
+  `qty_asset_lending` int(11) NOT NULL,
+  `total_lending` int(11) NOT NULL,
+  `percentage` int(11) DEFAULT NULL,
+  `created_at` varchar(225) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_at` varchar(225) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `stock_opnames`
+--
+
+INSERT INTO `stock_opnames` (`id`, `id_asset`, `id_year`, `asset_name`, `asset_code`, `qty_asset_master`, `qty_asset_lending`, `total_lending`, `percentage`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Gelas', 'RM-1638953151', 100, 33, 3, 10, '2021-12-14 13:56:31', '2021-12-14 13:56:31'),
+(2, 2, 1, 'Kaos Oblong', 'KLS-1638956223', 50, 17, 2, 7, '2021-12-14 14:06:49', '2021-12-14 14:06:49'),
+(3, NULL, 1, 'Gelas', 'RM-1638953151', 100, 50, 5, 17, '2021-11-01 14:18:15', '2021-11-01 14:18:15'),
+(4, NULL, 1, 'Kaos Oblong', 'KLS-1638956223', 50, 25, 6, 20, '2021-11-01 14:25:47', '2021-11-01 14:25:58'),
+(5, NULL, 2, 'Gelas', 'RM-1638953151', 100, 10, 9, 30, '2022-01-01 14:20:45', '2022-01-01 14:20:45'),
+(6, NULL, 2, 'Kaos Oblong', 'KLS-1638956223', 50, 10, 5, 17, '2022-01-01 14:24:30', '2022-01-01 14:24:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier`
+--
+
+CREATE TABLE `supplier` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppliers`
 --
 
 CREATE TABLE `suppliers` (
@@ -314,7 +347,7 @@ CREATE TABLE `suppliers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `suppliers`
+-- Dumping data for table `suppliers`
 --
 
 INSERT INTO `suppliers` (`id`, `name`, `description`, `address`, `phone`, `created_at`, `updated_at`) VALUES
@@ -323,7 +356,7 @@ INSERT INTO `suppliers` (`id`, `name`, `description`, `address`, `phone`, `creat
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -340,173 +373,219 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
---
-
-INSERT INTO `users` (`id`, `fname`, `lname`, `phone`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'DM', 'Naufal', '081311008828', 'dmnaufal7@gmail.com', NULL, '$2y$10$pkHpXRjQKX0Cs5/h1ceDJ.hVjKcd5eXw3G0IlRLfYAv4PPLal7TBK', NULL, '2021-09-30 08:57:23', '2021-09-30 08:57:23'),
-(2, 'Damian', 'Fal', '081311008829', 'damian@email.com', NULL, '$2y$10$LBoHgi0nKDrJWqXLPDLGoeRd0McfPQ7ynglXKkIbxsYTTOOQl.amK', NULL, '2021-09-30 16:17:18', '2021-09-30 16:17:18'),
-(3, 'Naufal', 'Maulana', '081311008830', 'naufal@email.com', NULL, '$2y$10$mn6aL5ZEr.T2z.1s8wc/a.w45.EaKkyt4zmf.zEnmYZE9KfbOVowe', NULL, '2021-09-30 16:17:44', '2021-09-30 16:17:44'),
-(4, 'Lala', 'Lili', '021342', 'lala@email.com', NULL, '$2y$10$Lf0LFc6tdeM/aGw5hmgG5OpgDn9WoEFz7KSK.zP8bTXhPaVAD2Bei', NULL, '2021-09-30 16:33:30', '2021-09-30 16:33:30'),
-(5, 'Emanuel', 'Sanjaya', '081311008832', 'emanuel@email.com', NULL, '$2y$10$I7sKOr0PW3j1W.660zvWL.2MwEGrq9W67w3UTC7u3pyPPn/du4MHi', NULL, '2021-09-30 16:40:25', '2021-09-30 16:40:25'),
-(6, 'sebas', 'tian', '081211008829', 'sebaatian@email.com', NULL, '$2y$10$dmWrgKS.TKy5zlhI0oFLfuRuqSdQtPEHUYijCSWujjl4SrRahh1wy', NULL, '2021-09-30 17:39:35', '2021-09-30 17:39:35');
-
---
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `lendings`
+-- Indexes for table `lendings`
 --
 ALTER TABLE `lendings`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `asset_id` (`asset_id`);
 
 --
--- Indeks untuk tabel `maintenances`
+-- Indexes for table `maintenances`
 --
 ALTER TABLE `maintenances`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `oauth_access_tokens`
+-- Indexes for table `oauth_access_tokens`
 --
 ALTER TABLE `oauth_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD KEY `oauth_access_tokens_user_id_index` (`user_id`);
 
 --
--- Indeks untuk tabel `oauth_auth_codes`
+-- Indexes for table `oauth_auth_codes`
 --
 ALTER TABLE `oauth_auth_codes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `oauth_auth_codes_user_id_index` (`user_id`);
 
 --
--- Indeks untuk tabel `oauth_clients`
+-- Indexes for table `oauth_clients`
 --
 ALTER TABLE `oauth_clients`
   ADD PRIMARY KEY (`id`),
   ADD KEY `oauth_clients_user_id_index` (`user_id`);
 
 --
--- Indeks untuk tabel `oauth_personal_access_clients`
+-- Indexes for table `oauth_personal_access_clients`
 --
 ALTER TABLE `oauth_personal_access_clients`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `oauth_refresh_tokens`
+-- Indexes for table `oauth_refresh_tokens`
 --
 ALTER TABLE `oauth_refresh_tokens`
   ADD PRIMARY KEY (`id`),
   ADD KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`);
 
 --
--- Indeks untuk tabel `password_resets`
+-- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indeks untuk tabel `products`
+-- Indexes for table `periods`
 --
-ALTER TABLE `products`
+ALTER TABLE `periods`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `suppliers`
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Category ID` (`category_id`);
+
+--
+-- Indexes for table `stock_opnames`
+--
+ALTER TABLE `stock_opnames`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_asset` (`id_asset`),
+  ADD KEY `id_asset_2` (`id_asset`),
+  ADD KEY `id_asset_3` (`id_asset`),
+  ADD KEY `id_year` (`id_year`);
+
+--
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `lendings`
+-- AUTO_INCREMENT for table `lendings`
 --
 ALTER TABLE `lendings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `maintenances`
+-- AUTO_INCREMENT for table `maintenances`
 --
 ALTER TABLE `maintenances`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
--- AUTO_INCREMENT untuk tabel `oauth_clients`
+-- AUTO_INCREMENT for table `oauth_clients`
 --
 ALTER TABLE `oauth_clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `oauth_personal_access_clients`
+-- AUTO_INCREMENT for table `oauth_personal_access_clients`
 --
 ALTER TABLE `oauth_personal_access_clients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `periods`
+--
+ALTER TABLE `periods`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `suppliers`
+-- AUTO_INCREMENT for table `stock_opnames`
+--
+ALTER TABLE `stock_opnames`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `lendings`
+--
+ALTER TABLE `lendings`
+  ADD CONSTRAINT `Asset ID` FOREIGN KEY (`asset_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `Category ID` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
