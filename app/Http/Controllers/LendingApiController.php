@@ -11,7 +11,7 @@ class LendingApiController extends Controller
 {
     public function index()
     {
-        $lendings = Lending::where('status', 'Dipinjam')->get();
+        $lendings = Lending::where('status', 'Dipinjam')->orderBy('created_at', 'desc')->get();
         return response()->json(['message' => 'Success', 'data' => $lendings]);
     }
 
@@ -25,22 +25,36 @@ class LendingApiController extends Controller
     {
 
         $asset_id = Product::where('id', $id)->first();
-        // dd($asset_id);
         $product_code = $asset_id->product_code;
         $product_img = $asset_id->image_url;
-        // dd($product_img);
+        $qty = $request->qty;
+        $year = date("Y");
+        $month = date("M");
+        // $lending_qty = Product::where('id', $id)->update(array(
+        //     'qty_lending' => DB::raw('qty_lending + 100')
+        // ));
+        // dd($lending_qty);
+
 
         $lending = Lending::create([
             'borrower' => $request->borrower,
             'asset_id' => $id,
             'product_code' => $product_code,
+            'qty' => $qty,
             'description' => $request->description,
+            'date' => $request->date,
             'time_start' => $request->time_start,
             'time_end' => $request->time_end,
             'phone' => $request->phone,
             'status' => 'Dipinjam',
+            'year' => $year,
+            'month' => $month,
             'image' => $product_img,
         ]);
+
+        // $asset = Product::update([
+        //     'qty_lending' => $lending_qty
+        // ]);
 
         // dd($lending);
 
@@ -52,7 +66,7 @@ class LendingApiController extends Controller
         $lending = Lending::find($id);
         // $lending->update($request->all());
         $lending->update([
-            'status' => 'Selesai'
+            'status' => 'Tersedia'
         ]);
         return response()->json(['message' => 'Data diperbarui', 'data' => $lending]);
     }

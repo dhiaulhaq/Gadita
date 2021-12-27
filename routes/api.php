@@ -2,13 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Product;
 use App\Http\Controllers\ProductApiController;
 use App\Http\Controllers\SupplierApiController;
 use App\Http\Controllers\LendingApiController;
 use App\Http\Controllers\MaintenanceApiController;
 use App\Http\Controllers\CategoryApiController;
 use App\Http\Controllers\StockOpnameApiController;
-use App\Models\StockOpname;
+use App\Http\Controllers\YearApiController;
+use App\Http\Controllers\MonthApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,9 +67,19 @@ Route::put('/category/{id}', [CategoryApiController::class, 'update']);
 Route::delete('/category/{id}', [CategoryApiController::class, 'destroy']);
 
 //Stock Opname Api
-Route::get('/stock_opname', [StockOpnameApiController::class, 'indexYear']);
-Route::post('/stock_opname', [StockOpnameApiController::class, 'storeYear']);
-Route::get('/stock_opname/{id}', [StockOpnameApiController::class, 'showYear']);
-Route::get('/stock_opname/month', [StockOpnameApiController::class, 'month']);
-// Route::get('/stock_opname', [StockOpnameApiController::class, 'index']);
-Route::post('/stock_opname/scan', [StockOpnameApiController::class, 'store']);
+Route::get('/stock_opname/{year}/{month}', [StockOpnameApiController::class, 'show']);
+Route::post('/stock_opname/scan/{id_period}', [StockOpnameApiController::class, 'store']);
+// Route::delete('/stock_opname/{id}', [StockOpnameApiController::class, 'destroy']);
+
+//Period Api
+Route::get('/stock_opname', [YearApiController::class, 'index']);
+Route::post('/stock_opname/create', [YearApiController::class, 'store']);
+//result stock opname
+Route::get('santet/{id_period}', [YearApiController::class, 'show']);
+Route::get('/period/{id}', [YearApiController::class, 'detail']);
+Route::delete('/period/{id}', [YearApiController::class, 'destroy']);
+Route::post('send_qty/{code}', [YearApiController::class, 'sendQty']);
+
+Route::get('lending-count/{y}', [YearApiController::class, 'getLendingCount']);
+Route::put('update-precentage/{id}', [YearApiController::class, 'sendLendingCount']);
+Route::get('year', [YearApiController::class, 'year']);

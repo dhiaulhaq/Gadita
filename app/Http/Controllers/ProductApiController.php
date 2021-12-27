@@ -7,19 +7,21 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Lending;
 
 class ProductApiController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'desc')->get();
         return response()->json(['message' => 'Success', 'data' => $products]);
     }
 
     public function show($id)
     {
         $product = Product::find($id);
-        return response()->json(['message' => 'Success', 'data' => $product]);
+        $lending = Lending::whereIn('asset_id', [$id])->orderBy('time_start', 'desc')->get();
+        return response()->json(['message' => 'Success', 'data' => $product, 'time' => $lending]);
     }
 
     public function store(Request $request)
@@ -30,31 +32,50 @@ class ProductApiController extends Controller
         // $code = json_decode($request->codes, TRUE);
         // dd($code);
 
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
 
-            $category = Category::where('id', $request->category_id)->first();
-            $categoryId = $category->code;
-            $product_code = $categoryId . '-' . time();
+        //     // $category = Category::where('id', $request->category_id)->first();
+        //     // $categoryId = $category->code;
+        //     $categoryId = $request->category_id;
+        //     $product_code = $categoryId . '-' . time();
 
-            $product = Product::create([
-                'name' => $request->name,
-                'category_id' => $request->category_id,
-                'product_code' => $product_code,
-                'description' => $request->description,
-                'qty_master' => $request->price,
-                'image_url' => $request->image_url,
-            ]);
+        //     $product = Product::create([
+        //         'name' => $request->name,
+        //         'category_id' => $request->category_id,
+        //         'product_code' => $product_code,
+        //         'description' => $request->description,
+        //         'qty_master' => $request->qty_master,
+        //         'image_url' => $request->image_url,
+        //     ]);
 
-            // dd($product);
+        //     // dd($product);
 
-            DB::commit();
+        //     DB::commit();
 
-            return response()->json(['message' => 'Data tersimpan', 'data' => $product]);
-        } catch (\Exception $exception) {
-            DB::rollBack();
-            return response()->json()->withErrors($exception);
-        }
+        //     return response()->json(['message' => 'Data tersimpan', 'data' => $product]);
+        // } catch (\Exception $exception) {
+        //     DB::rollBack();
+        //     return response()->json()->withErrors($exception);
+        // }
+
+        $categoryId = $request->category_id;
+        $product_code = $categoryId . '-' . time();
+
+        $product = Product::create([
+            'name' => $request->name,
+            'category_id' => null,
+            'product_code' => $product_code,
+            'description' => $request->description,
+            'qty_master' => $request->qty_master,
+            'image_url' => $request->image_url,
+        ]);
+
+        // dd($product);
+
+        DB::commit();
+
+        return response()->json(['message' => 'Data tersimpan', 'data' => $product]);
     }
 
     public function update(Request $request, $id)
