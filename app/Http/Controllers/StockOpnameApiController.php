@@ -26,8 +26,8 @@ class StockOpnameApiController extends Controller
 
     public function store(Request $request)
     {
-        $assetArray = ['RM-1638953151', 'KLS-1638956223'];
-        // $assetArray = $request->assetCode;
+        // $assetArray = ['RM-1638953151', 'KLS-1638956223'];
+        $assetArray = $request->assetCode;
         $assetId = Product::whereIn('product_code', $assetArray)->get('id');
         $year = date("Y");
         $month = date("M");

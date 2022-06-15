@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
+
+    use HasApiTokens;
 
     public function login()
     {
@@ -30,33 +34,56 @@ class UsersController extends Controller
         }
     }
 
-    public function register(Request $request)
-    {
+    // public function register(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'fname' => 'required',
+    //         'lname' => 'required',
+    //         'phone' => 'required|unique:users|regex:/(0)[0-9]{10}/',
+    //         // 'phone' => 'required',
+    //         'email' => 'required|email|unique:users',
+    //         'password' => 'required',
+    //     ]);
+    //     if ($validator->fails()) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => $validator->errors(),
+    //             // 'message' => 'Email already exist',
+    //         ], 401);
+    //     }
+    //     $input = $request->all();
+    //     $input['password'] = bcrypt($input['password']);
+    //     $user = User::create($input);
+    //     $success['token'] = $user->createToken('appToken')->accessToken;
+    //     return response()->json([
+    //         'success' => true,
+    //         'token' => $success,
+    //         'user' => $user
+    //     ]);
+    // }
+
+    public function register(Request $request){
         $validator = Validator::make($request->all(), [
-            'fname' => 'required',
-            'lname' => 'required',
-            'phone' => 'required|unique:users|regex:/(0)[0-9]{10}/',
-            // 'phone' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
+         'name' => ['required', 'string', 'max:255'],
+         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+         'password' => ['required', 'string', 'min:8'],
         ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => $validator->errors(),
-                // 'message' => 'Email already exist',
-            ], 401);
+        if($validator->fails()){
+         return response()->json([
+          'success' => false,
+          'message' => $validator->errors(),
+         ], 401);
         }
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $success['token'] = $user->createToken('appToken')->accessToken;
         return response()->json([
-            'success' => true,
-            'token' => $success,
-            'user' => $user
+         'success' => true,
+         'token' => $success,
+         'user' => $user
         ]);
-    }
+       }
 
     public function logout(Request $res)
     {

@@ -11,7 +11,7 @@ class LendingApiController extends Controller
 {
     public function index()
     {
-        $lendings = Lending::where('status', 'Dipinjam')->orderBy('created_at', 'desc')->get();
+        $lendings = Lending::where('status', 'Borrowed')->orderBy('created_at', 'desc')->get();
         return response()->json(['message' => 'Success', 'data' => $lendings]);
     }
 
@@ -26,6 +26,7 @@ class LendingApiController extends Controller
 
         $asset_id = Product::where('id', $id)->first();
         $product_code = $asset_id->product_code;
+        $product_name = $asset_id->name;
         $product_img = $asset_id->image_url;
         $qty = $request->qty;
         $year = date("Y");
@@ -39,14 +40,16 @@ class LendingApiController extends Controller
         $lending = Lending::create([
             'borrower' => $request->borrower,
             'asset_id' => $id,
+            'asset_name' => $product_name,
             'product_code' => $product_code,
             'qty' => $qty,
             'description' => $request->description,
             'date' => $request->date,
+            'date_end' => $request->date_end,
             'time_start' => $request->time_start,
             'time_end' => $request->time_end,
             'phone' => $request->phone,
-            'status' => 'Dipinjam',
+            'status' => 'Borrowed',
             'year' => $year,
             'month' => $month,
             'image' => $product_img,
@@ -66,7 +69,7 @@ class LendingApiController extends Controller
         $lending = Lending::find($id);
         // $lending->update($request->all());
         $lending->update([
-            'status' => 'Tersedia'
+            'status' => 'Returned'
         ]);
         return response()->json(['message' => 'Data diperbarui', 'data' => $lending]);
     }

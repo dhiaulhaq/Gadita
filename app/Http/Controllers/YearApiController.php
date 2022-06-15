@@ -27,7 +27,7 @@ class YearApiController extends Controller
         // dd($day);
 
         $period = Period::create([
-            'user' => null,
+            'user' => $request->user,
             'period' => $date,
             'year' => $year,
             'month' => $month,
@@ -96,15 +96,23 @@ class YearApiController extends Controller
     public function sendLendingCount($id)
     {
         $monthLending = Period::where('id', $id)->first();
-        $monthCount = Lending::where([['year', $monthLending->year], ['month', $monthLending->month]])->count();
 
-        $monthPrecentage = $monthCount / 365 * 100;
+        $monthCount = Lending::where([
+            'year' => $monthLending->year,
+            'month' => $monthLending->month
+        ])->count();
+
+        // dd($monthCount);
+
+        // $monthPrecentage = $monthCount / 365 * 100;
+
+        // dd($monthPrecentage);
 
         $monthResult = Period::where('id', $id)->update([
-            'precentage' => $monthPrecentage,
+            'precentage' => $monthCount,
         ]);
-        // dd($monthResult);
-        return response()->json(['message' => 'Data diperbarui', 'data' => $monthResult]);
+
+        return response()->json(['message' => 'Data diperbarui', 'data' => $monthCount]);
     }
 
     public function year()

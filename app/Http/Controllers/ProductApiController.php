@@ -62,18 +62,41 @@ class ProductApiController extends Controller
         $categoryId = $request->category_id;
         $product_code = $categoryId . '-' . time();
 
+        // dd($categoryId);
+
+        // $request->validate([
+        //     'image_url' => 'sometimes|image'
+        // ]);
+
+        // if ($request->file('image_url')) {
+        //     $img = $request->file('image_url');
+        //     // dd($img);
+        //     $image_url = Storage::putFile(
+        //         'public/asset_image/',
+        //         $img
+        //     );
+        // }
+
+        if ($image_url = $request->file('image_url')) {
+            $destinationPath = 'storage/asset_image/';
+            $assetImage = date('YmdHis') . "." . $image_url->getClientOriginalExtension();
+            $image_url->move($destinationPath, $assetImage);
+            $input['image_url'] = "$assetImage";
+        }
+
+        // dd($profileImage);
+
         $product = Product::create([
             'name' => $request->name,
             'category_id' => null,
             'product_code' => $product_code,
             'description' => $request->description,
             'qty_master' => $request->qty_master,
-            'image_url' => $request->image_url,
+            'location' => $request->location,
+            'image_url' => $assetImage,
         ]);
 
         // dd($product);
-
-        DB::commit();
 
         return response()->json(['message' => 'Data tersimpan', 'data' => $product]);
     }
@@ -81,7 +104,23 @@ class ProductApiController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
-        $product->update($request->all());
+        // $product->update($request->all());
+
+        $input = $request->all();
+
+        // dd($input);
+
+        if ($image = $request->file('image_url')) {
+            $destinationPath = 'storage/asset_image/';
+            $assetImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $assetImage);
+            $input['image_url'] = "$assetImage";
+        } else {
+            unset($input['image_url']);
+        }
+
+        $product->update($input);
+
         return response()->json(['message' => 'Data diperbarui', 'data' => $product]);
     }
 

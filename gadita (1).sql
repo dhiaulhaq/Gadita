@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2021 at 04:38 AM
+-- Generation Time: Jan 13, 2022 at 06:14 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.20
 
@@ -335,10 +335,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `category_id`, `product_code`, `description`, `qty_master`, `qty_lending`, `qty_available`, `image_url`, `created_at`, `updated_at`) VALUES
-(1, 'Gelas', 1, 'RM-1638953151', 'Dari Beling', 123, 215, NULL, 'https://id-test-11.slatic.net/shop/c9b11bfffa4c0d72eaf00ea2bfb0756a.jpeg_2200x2200q80.jpg_.webp', '2021-12-08 01:45:51', '2021-12-26 16:57:36'),
-(2, 'Kaos Oblong', 2, 'KLS-1638956223', 'Dari sutera', 56, 17, NULL, 'https://cf.shopee.co.id/file/f0e6bd52dbe9e9edc17fc7e02ea978f9', '2021-12-08 02:37:03', '2021-12-26 20:17:49'),
-(4, 'Keyboard', 1, 'RM-1640096367', 'Mekanik', 153, NULL, NULL, 'https://www.jakartanotebook.com/images/products/41/1020/53635/280/keychron-wireless-mechanical-keyboard-84-keys-backlit-with-gateron-red-switch-k2-a-v2-gray-or-red-1.jpg', '2021-12-21 07:19:28', '2021-12-26 20:03:15'),
-(5, 'Meja', 2, 'KLS-1640096607', 'Dari Kayu Jati', 96, NULL, NULL, 'https://uwitan.id/wp-content/uploads/2019/09/1-furniture-meja-makan-m-natural.jpg', '2021-12-21 07:23:27', '2021-12-26 14:20:46');
+(1, 'Gelas', 1, 'RM-1638953151', 'Dari Beling', 123, 215, NULL, 'asset_image//c9b11bfffa4c0d72eaf00ea2bfb0756a.jpeg_2200x2200q80.jpg_.png', '2021-12-08 01:45:51', '2021-12-26 16:57:36'),
+(2, 'Kaos Oblong', 2, 'KLS-1638956223', 'Dari sutera', 56, 17, NULL, 'asset_image//f0e6bd52dbe9e9edc17fc7e02ea978f9.png', '2021-12-08 02:37:03', '2021-12-26 20:17:49'),
+(4, 'Keyboard', 1, 'RM-1640096367', 'Mekanik', 153, NULL, NULL, 'asset_image//keychron-wireless-mechanical-keyboard-84-keys-backlit-with-gateron-red-switch-k2-a-v2-gray-or-red-1.jpg', '2021-12-21 07:19:28', '2021-12-26 20:03:15'),
+(5, 'Meja', 2, 'KLS-1640096607', 'Dari Kayu Jati', 96, NULL, NULL, 'asset_image//1-furniture-meja-makan-m-natural.jpg', '2021-12-21 07:23:27', '2021-12-26 14:20:46');
 
 -- --------------------------------------------------------
 
@@ -458,7 +458,8 @@ CREATE TABLE `year` (
 --
 
 INSERT INTO `year` (`id`, `year`) VALUES
-(2, 2021);
+(2, 2021),
+(4, 2022);
 
 --
 -- Indexes for dumped tables
@@ -645,13 +646,13 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `periods`
 --
 ALTER TABLE `periods`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `stock_opnames`
@@ -681,7 +682,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `year`
 --
 ALTER TABLE `year`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
